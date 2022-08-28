@@ -206,8 +206,8 @@ model.add(keras.layers.Flatten())
 # Hidden layer with 512 neurons and Rectified Linear Unit activation function 
 model.add(keras.layers.Dense(512,activation='relu'))
 
-# Output layer with single neuron which gives 0 for Cat or 1 for Dog 
-#Here we use sigmoid activation function which makes our model output to lie between 0 and 1
+# Output layer
+#Here we use softmax activation function which makes our model output for 5 classes
 model.add(keras.layers.Dense(5,activation='softmax'))
 
 #Get summary of the model
@@ -217,7 +217,7 @@ model.summary()
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 #Train the model
-history = model.fit_generator(train_generator, steps_per_epoch=5, validation_data=valid_generator, validation_steps=4, epochs=10)
+history = model.fit_generator(train_generator, steps_per_epoch=20, validation_data=valid_generator, validation_steps=4, epochs=25)
 
 #Get the accuracy score
 test_score = model.evaluate_generator(test_generator, 32)
@@ -225,7 +225,7 @@ test_score = model.evaluate_generator(test_generator, 32)
 print("[INFO] accuracy: {:.2f}%".format(test_score[1] * 100)) 
 print("[INFO] Loss: ",test_score[0])
 
-epochs=10
+epochs=25
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
 
