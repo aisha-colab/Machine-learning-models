@@ -1,4 +1,6 @@
-# Machine-learning-models(PRETRAINEND MODELS)
+# Machine-learning-models
+PRETRAINEND MODELS
+
 https://github.com/aisha-colab/Machine-learning-models/tree/main
 Use google colab for this work
 Architecture of CNN 
