@@ -1,0 +1,77 @@
+<DOCTYPE html>
+<html>
+    <head> <title>                     </title>
+        <style> * { font-size:20px;} </style>
+    </head>
+    <body style="background-color:#FFF8DC;" > 
+        <center> 
+        <p style='font-weight:bold; color:green; font-family:verdana' > Image Recognition using Deep Learning Model </p>
+        <br>
+        <input id='Img-selector' type='file'>
+        <button id='predict-button' > Predict </button>
+       <p> 
+       <style>* { box-sizing: border-box;}
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 200px; 
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+<h2>Results</h2>
+
+<div class="row">
+  <div class="column" style="background-color:#bbc; border-style:solid; border-color: black; border-width:2px">
+    <h2> Predicted Object </h2>
+    <p> <span id='object-name'; style=' color:blue; font-family:Comic Sans MS;' ></span></p> 
+  </div>
+  <div class="column" style="background-color:#bbc; border-style:solid; border-color: black;border-width:2px">
+    <h2>Likelihood </h2>
+    <p> <span id='object-prediction'; style='font-weight:bold; color:blue' ></span> </p>
+  </div>
+</div>
+       </p>
+        <h2> Image </h2>
+        <img id='selected-Img' src=""/>
+        </center>
+        <script src = 'https://code.jquery.com/jquery-3.3.1.min.js'></script>
+
+        <script>
+            //Triggering change event after the Image is selected from the Browse Button 
+            let base64Img;
+            $("#Img-selector").change(function() {
+                let reader = new FileReader();
+                reader.onload = function(e){
+                    let dataURL = reader.result;
+                    $('#selected-Img').attr("src", dataURL);
+                    base64Img = dataURL.replace(/^data:image\/(png|jpeg);base64,/, "");
+                    console.log(base64Img);
+                }
+               // read the file from the file object
+                reader.readAsDataURL($("#Img-selector")[0].files[0]);
+                // the following clears the texts on the page when you select the next image
+                $("#object-name").text("");
+                $("#object-prediction").text("");
+                });
+
+            $("#predict-button").click(function(event){
+                let message = {
+                    image: base64Img
+                }
+                console.log(message);
+                $.post("http://127.0.0.1:5000/predict", JSON.stringify(message), function(response){
+                    $("#object-name").text(response.predictions.label);
+                    $("#object-prediction").text(response.predictions.probability.toFixed(4));
+                    console.log(response);
+                });
+            });
+        </script>
+    </body>
+    </html>
