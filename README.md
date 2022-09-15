@@ -15,3 +15,10 @@ Figure 4.2: Convolutional layer working shown
 4.2.2. Pooling layer: After convolutional layer this layer is used to extract most dominant features of the image either by doing Max pooling or avg pooling depending on the required of the image dataset.
 
 4.3.3. Fully connected layer: After the above two layers there Is fully connected layer which is like feed forward neural network in which the output of both the above layers are flatten into 1D array.
+PRETRAINED MODELS 
+VGG16
+VGG19
+RestNet50
+Inception-V3
+EfficientNet
+XCeption
